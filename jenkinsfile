@@ -6,11 +6,11 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/babu517/php.git']]])
             }
         }
-    stage('Deploy') {
+    stage('Copy files to Target Machine') {
             steps {
-                // Run Ansible playbook to deploy the application
-                sh 'ansible-playbook -i /etc/ansible/hosts 'https://github.com/babu517/jenkins-cicd-php-demo/blob/main/deploy.yaml''
-            }
-        }
+    sshagent(['target machine']) {
+       sh 'sh 'ssh -o StrictHostKeyChecking=no user@remote-server' 
+       sh 'scp /var/lib/jenkins/workspace/php/* user@remote-server:/home/cloud4c'
+           }
 }
 }
