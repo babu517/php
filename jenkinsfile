@@ -9,7 +9,7 @@ pipeline {
     stage('Copy files to Target Machine') {
             steps {
     sshagent(['target machine']) {
-       sh 'sh 'ssh -o StrictHostKeyChecking=no cloud4c@172.31.66.0' 
+       sh 'ssh -o StrictHostKeyChecking=no cloud4c@172.31.66.0' 
        sh 'scp /var/lib/jenkins/workspace/php/* cloud4c@172.31.66.0:/home/cloud4c'
            }
 }
